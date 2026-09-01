@@ -1,10 +1,26 @@
-const produto ={
-    nome: "Teclado mecanico",
-    preço: 150.00,
-    estoque: 25,
-    EmOferta: true
-};
+const entrada = require('readline-sync')
 
-console.log('Produto: ${produto.nome}');
-console.log('Preço: R$ ${produto.preco.toFixed(2)}');
-console.log('Produto: ${produto.nome} | ${produto.preco} | ${produto.estoque} | ${produto.EmOferta}');
+function verificarStatus(nota) {
+    return nota >= 7 ? "APROVADO" : "REPROVADO"
+}
+
+const turma =[];
+
+for (let i = 0; i < 3; i++) {
+    console.log(`\n --- cadastro do aluno ${i+1} ---`)
+    let nomeAluno = entrada.question("Nome: ");
+    let notaAluno = entrada.questionFloat("Nota: ");
+
+    const novoAluno = {
+        nome: nomeAluno,
+        nota: notaAluno,
+        status: verificarStatus(notaAluno)
+    };
+
+    turma.push(novoAluno);
+}
+
+console.log("\n====== RELATORIO FINAL ======")
+for (let i = 0; i < turma.length; i++) {
+    console.log(`${turma[i].nome} - Nota: ${turma[i].nota} | status: ${turma[i].status}`);
+}

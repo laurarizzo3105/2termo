@@ -1,12 +1,17 @@
-const entrada = require('readline-sync');
+const entrada = require('readline-sync')
 
-function converterParaFahrenheit(celsius) {
-    let fahrenheit = (celsius * 9/5) + 32;
-    return fahrenheit; 
+function calcularDesconto(precoOriginal) {
+    return precoOriginal * 0.85; 
+
 }
 
-const tempC = entrada.questionFloat("digite a temperatura em celsius: ");
+const produtos = ["Monitor", "Teclado", "Mouse"];
+const precos = [800, 150, 80];
 
-const tempF = converterParaFahrenheit(tempC);
+console.log("=== TABELA DE PREÇOS COM DESCONTO (15%) ===");
 
-console.log(`A temperatura convertida é: ${tempF.toFixed(1)}°F`);
+for (let i = 0; i < produtos.length; i++) {
+    let precoComDesconto = calcularDesconto(precos[i]);
+
+    console.log(`${produtos[i]}: de R$ ${precos[i]} por R$ ${precoComDesconto.toFixed(2)}`)
+}

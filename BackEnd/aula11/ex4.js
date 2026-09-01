@@ -1,9 +1,12 @@
-const entrada = require("readline-sync")
-function calcularMedia(n1, n2) {
-    return (n1 = n2) / 2;
+const entrada = require('readline-sync');
+
+function converterParaFahrenheit(celsius) {
+    let fahrenheit = (celsius * 9/5) + 32;
+    return fahrenheit; 
 }
 
-const numero1 = entrada.questionInt("Qual a sua nota 1?")
-const numero2 = entrada.questionInt("Qual a sua nota 2?")
-const resultado = calcularMedia(numero1, numero2)
-console.log(`A media calculada foi: ${resultado}`);
+const tempC = entrada.questionFloat("digite a temperatura em celsius: ");
+
+const tempF = converterParaFahrenheit(tempC);
+
+console.log(`A temperatura convertida é: ${tempF.toFixed(1)}°F`);
