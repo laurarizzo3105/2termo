@@ -1,0 +1,23 @@
+/* CABEÇALHO */
+h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: darkseagreen;
+    font-size: 10px;
+
+}
+
+.seletor {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+}
+
+/*ID*/
+#texto {
+    color: palegreen;
+}
+
+h2 {
+    font-family: Roboto;
+    font-weight: lighter;
+    text-align: center;
+}
