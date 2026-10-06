@@ -1,0 +1,20 @@
+[
+  {
+    "codigo": 1001,
+    "tipo": "Temperatura",
+    "leituraAtual": 45.5,
+    "statuss": "Operando"
+  },
+  {
+    "codigo": 1002,
+    "tipo": "Pressão",
+    "leituraAtual": 4,
+    "statuss": "Operando"
+  },
+  {
+    "codigo": 1003,
+    "tipo": "Temperatura",
+    "leituraAtual": 145.5,
+    "statuss": "Alerta!"
+  }
+]
