@@ -1,0 +1,75 @@
+.flexb {
+    /* para usar o flex devemos lembrar de definir o display como flex */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 23px 8%;
+    /* justify-content: center;
+    justify-content: flex-end;
+    justify-content:  flex-start;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    justify-content: space-around; */
+    background-color: rgb(247, 216, 221);
+
+}
+.menu-f{
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    margin :0;
+    padding: 0;
+}
+
+.flex-ban {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    padding: 60px 8%;
+    background-color: rgb(183, 240, 183);
+}
+
+.flex-ban-c, .flex-ban-imagen {
+    flex: 1;
+}
+.flex-ban-imagen {
+    margin:0;
+}
+.flex-ban-imagen img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.flex-cs {
+    display: flex;
+    gap:20;
+    gap: 35px;
+    padding: 0;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+}
+
+.flex-cs > li {
+    flex: 1;
+    min-width: 300px;
+}
+
+.flex-con {
+    display: flex;
+    gap: 43px;
+    align-items: flex-start;
+    padding: 60px 8%;
+}
+
+.flex-con-c, .flex-con form {
+    flex: 1;
+}
+
+.flex-ca {
+    display: flex;
+    height: 200px;
+    background-color: papayawhip;
+    align-items: flex-start;
+}

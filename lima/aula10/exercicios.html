@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de Flexbox</title>
+
+    <style>
+        /* =========================================
+           EXERCÍCIO 01 e 02 — ATIVE / ESPACE
+           ========================================= */
+
+        .equipe {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+
+        /* =========================================
+           EXERCÍCIO 03 — DISTRIBUA
+           ========================================= */
+
+        .distribua {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            justify-content: space-between;
+        }
+
+
+        /* =========================================
+           EXERCÍCIO 04 — ALINHE
+           ========================================= */
+
+        .area {
+            display: flex;
+            align-items: center;
+            height: 200px;
+            gap: 20px;
+        }
+
+        .area div {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+
+        /* =========================================
+           EXERCÍCIO 05 — CORRIJA O LAYOUT
+           ========================================= */
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         EXERCÍCIO 01 e 02
+         ========================================= -->
+
+    <h2>Exercício 01 e 02 — Ative e Espace</h2>
+
+    <ul class="equipe">
+        <li>Ana</li>
+        <li>Bruno</li>
+        <li>Carla</li>
+    </ul>
+
+
+<!-- ex3 -->
+
+    <h2>Exercício 03 — Distribua</h2>
+
+    <ul class="distribua">
+        <li>Ana</li>
+        <li>Bruno</li>
+        <li>Carla</li>
+    </ul>
+
+
+<!-- ex4 -->
+
+    <h2>Exercício 04 — Alinhe</h2>
+
+    <div class="area">
+        <div>Elemento 1</div>
+        <div>Elemento 2<br>com mais conteúdo</div>
+        <div>Elemento 3<br>com mais<br>conteúdo</div>
+    </div>
+
+<!-- ex5 -->
+
+    <ul class="cards">
+        <li>
+            <article>Produto 1</article>
+        </li>
+
+        <li>
+            <article>Produto 2</article>
+        </li>
+
+        <li>
+            <article>Produto 3</article>
+        </li>
+    </ul>
+
+</body>
+</html>

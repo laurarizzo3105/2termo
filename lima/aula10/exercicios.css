@@ -1,0 +1,52 @@
+
+/* Exercicio 1  */
+
+.equipe {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Exercicio 2 */
+
+.equipe {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Exercicio 3 */
+
+.equipe {
+  display: flex;
+    align-items: center;
+    align-items: flex-end;
+    align-items: flex-start;
+    align-items: space-between;
+    align-items: space-evenly;
+  padding: 0;
+  margin: 0;
+}
+
+/* Exercicio 4 */
+
+
+.area {
+  display: flex;
+  height: 150px;
+  align-items: flex-start;
+}
+
+
+/* Exercicio 5 */
+
+.cards {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
