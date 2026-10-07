@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dino Runner</title>
+
+<title>Dino Run</title>
 
 <style>
 * {
@@ -16,391 +17,360 @@ body {
     background: #f7f7f7;
     font-family: monospace;
     overflow: hidden;
-    touch-action: manipulation;
+    user-select: none;
 }
 
 #game {
-    position: relative;
     width: 100%;
-    height: 320px;
-    margin-top: 70px;
-    background: white;
-    border-bottom: 4px solid #555;
+    height: 300px;
+    position: relative;
     overflow: hidden;
+    background: #f7f7f7;
+    border-bottom: 3px solid #555;
 }
 
 #score {
     position: absolute;
     top: 15px;
     right: 25px;
-    color: #555;
     font-size: 20px;
-    z-index: 50;
+    color: #555;
+    z-index: 10;
 }
 
-/* =========================
-   DINO
-========================= */
+#highscore {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 20px;
+    color: #777;
+}
+
+#message {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 90px;
+    font-size: 25px;
+    color: #555;
+    z-index: 20;
+}
+
+#ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: #555;
+}
+
+/* DINOSSAURO */
 
 #dino {
     position: absolute;
     left: 80px;
     bottom: 4px;
-    width: 58px;
-    height: 60px;
-    z-index: 10;
-}
 
-/* corpo */
-.dino-body {
-    position: absolute;
-    left: 8px;
-    bottom: 5px;
-    width: 38px;
-    height: 39px;
-    background: #333;
-    border-radius: 12px 7px 5px 8px;
-}
+    width: 50px;
+    height: 55px;
 
-/* cabeça */
-.dino-head {
-    position: absolute;
-    left: 30px;
-    top: 3px;
-    width: 31px;
-    height: 28px;
-    background: #333;
-    border-radius: 6px 10px 4px 4px;
-    z-index: 3;
-}
+    background: #555;
 
-/* focinho */
-.dino-snout {
-    position: absolute;
-    left: 54px;
-    top: 16px;
-    width: 12px;
-    height: 10px;
-    background: #333;
-    border-radius: 2px 5px 4px 2px;
-    z-index: 4;
-}
-
-/* olho */
-.dino-eye {
-    position: absolute;
-    left: 49px;
-    top: 9px;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    z-index: 6;
-}
-
-.dino-eye::after {
-    content: "";
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: black;
-    left: 2px;
-    top: 2px;
-}
-
-/* barriga */
-.dino-belly {
-    position: absolute;
-    left: 17px;
-    bottom: 10px;
-    width: 21px;
-    height: 20px;
-    background: #444;
-    border-radius: 50%;
-}
-
-/* braço */
-.dino-arm {
-    position: absolute;
-    left: 36px;
-    bottom: 18px;
-    width: 17px;
-    height: 6px;
-    background: #333;
     border-radius: 5px;
-    transform: rotate(20deg);
+
     z-index: 5;
 }
 
-/* cauda */
-.tail {
+/* cabeça */
+
+#dino::before {
+    content: "";
+
     position: absolute;
-    left: -16px;
-    bottom: 22px;
-    width: 28px;
-    height: 10px;
-    background: #333;
-    border-radius: 8px;
-    transform: rotate(-20deg);
+
+    width: 32px;
+    height: 30px;
+
+    background: #555;
+
+    right: -10px;
+    top: 0;
+
+    border-radius: 4px;
+}
+
+/* olho */
+
+#dino::after {
+    content: "";
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    background: white;
+
+    right: -3px;
+    top: 7px;
 }
 
 /* pernas */
+
 .leg {
     position: absolute;
-    bottom: -4px;
-    width: 10px;
-    height: 20px;
-    background: #333;
-    border-radius: 3px;
+
+    width: 9px;
+    height: 22px;
+
+    background: #555;
+
+    bottom: -18px;
 }
 
 .leg1 {
-    left: 12px;
+    left: 8px;
 }
 
 .leg2 {
-    right: 8px;
-}
-
-/* pés */
-.leg::after {
-    content: "";
-    position: absolute;
-    left: -3px;
-    bottom: 0;
-    width: 16px;
-    height: 5px;
-    background: #333;
-    border-radius: 3px;
-}
-
-/* espinhos */
-.dino-spikes {
-    position: absolute;
-    left: 10px;
-    top: 8px;
-    color: #333;
-    font-size: 10px;
-    letter-spacing: 1px;
-    z-index: 7;
-}
-
-/* =========================
-   DINO AGACHADO
-========================= */
-
-#dino.crouching {
-    height: 38px;
-}
-
-#dino.crouching .dino-body {
-    height: 27px;
-    bottom: 4px;
-}
-
-#dino.crouching .dino-head {
-    top: 2px;
-}
-
-#dino.crouching .dino-snout {
-    top: 14px;
-}
-
-#dino.crouching .dino-arm {
-    bottom: 10px;
-}
-
-#dino.crouching .leg {
-    height: 10px;
-}
-
-#dino.crouching .tail {
-    bottom: 12px;
-}
-
-/* =========================
-   CACTOS
-========================= */
-
-.cactus {
-    position: absolute;
-    bottom: 4px;
-    background: #287a35;
-    border-radius: 8px 8px 3px 3px;
-}
-
-/* pequeno */
-.cactus.small {
-    width: 17px;
-    height: 35px;
-}
-
-/* médio */
-.cactus.medium {
-    width: 24px;
-    height: 55px;
-}
-
-/* grande */
-.cactus.large {
-    width: 31px;
-    height: 78px;
+    left: 27px;
 }
 
 /* braços */
-.cactus::before {
-    content: "";
+
+.arm {
     position: absolute;
-    left: -9px;
-    top: 45%;
-    width: 11px;
-    height: 22px;
-    background: #287a35;
-    border-radius: 7px;
+
+    width: 20px;
+    height: 7px;
+
+    background: #555;
+
+    right: -10px;
+    top: 30px;
+
+    transform: rotate(20deg);
+}
+
+/* AGACHADO */
+
+#dino.crouch {
+    height: 32px;
+    bottom: 4px;
+}
+
+#dino.crouch::before {
+    top: 0;
+}
+
+#dino.crouch .leg {
+    height: 10px;
+    bottom: -8px;
+}
+
+/* PULO */
+
+#dino.jump {
+    animation: jump 0.65s ease-out;
+}
+
+@keyframes jump {
+
+    0% {
+        bottom: 4px;
+    }
+
+    45% {
+        bottom: 150px;
+    }
+
+    100% {
+        bottom: 4px;
+    }
+}
+
+/* CACTO */
+
+.cactus {
+    position: absolute;
+
+    bottom: 4px;
+
+    width: 22px;
+    height: 55px;
+
+    background: #555;
+
+    border-radius: 3px;
+}
+
+.cactus::before,
+.cactus::after {
+    content: "";
+
+    position: absolute;
+
+    width: 13px;
+    height: 25px;
+
+    background: #555;
+
+    top: 20px;
+}
+
+.cactus::before {
+    left: -10px;
+    border-radius: 4px 0 0 4px;
 }
 
 .cactus::after {
-    content: "";
-    position: absolute;
-    right: -9px;
-    top: 20%;
-    width: 11px;
-    height: 25px;
-    background: #287a35;
-    border-radius: 7px;
+    right: -10px;
+    border-radius: 0 4px 4px 0;
 }
 
-/* =========================
-   PÁSSARO
-========================= */
+/* PÁSSARO */
 
 .bird {
     position: absolute;
+
     width: 45px;
-    height: 22px;
-    background: #444;
+    height: 18px;
+
+    background: #555;
+
     border-radius: 50%;
-    z-index: 8;
+
+    z-index: 4;
 }
 
 .bird::before {
     content: "";
+
     position: absolute;
-    left: 5px;
-    top: 10px;
+
     width: 28px;
-    height: 6px;
-    background: #444;
-    border-radius: 5px;
-    transform: rotate(25deg);
+    height: 8px;
+
+    background: #555;
+
+    left: 5px;
+    top: 12px;
+
+    transform: rotate(-20deg);
 }
 
 .bird::after {
     content: "";
+
     position: absolute;
-    right: -10px;
-    top: 6px;
-    border-left: 10px solid #444;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
+
+    width: 8px;
+    height: 8px;
+
+    background: white;
+
+    right: 5px;
+    top: 4px;
 }
 
-/* =========================
-   NUVENS
-========================= */
+/* NUVENS */
 
 .cloud {
     position: absolute;
+
     width: 70px;
-    height: 22px;
+    height: 20px;
+
     background: #ddd;
-    border-radius: 30px;
-    opacity: .7;
+
+    border-radius: 20px;
+
+    top: 50px;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: #ddd;
+
+    border-radius: 50%;
 }
 
 .cloud::before {
-    content: "";
-    position: absolute;
     width: 30px;
     height: 30px;
     left: 10px;
-    top: -12px;
-    background: #ddd;
-    border-radius: 50%;
+    top: -15px;
 }
 
 .cloud::after {
-    content: "";
-    position: absolute;
-    width: 38px;
-    height: 38px;
-    right: 5px;
+    width: 35px;
+    height: 35px;
+    right: 10px;
     top: -20px;
-    background: #ddd;
-    border-radius: 50%;
 }
 
-/* =========================
-   MENSAGEM
-========================= */
+/* GAME OVER */
 
-#message {
+.gameover {
     position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #555;
+
+    top: 125px;
+
+    width: 100%;
+
     text-align: center;
-    z-index: 40;
-}
 
-#message h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-}
+    font-size: 25px;
 
-#message p {
-    font-size: 15px;
-    margin: 3px;
-}
+    color: #555;
 
-.hidden {
-    display: none !important;
-}
-
-/* =========================
-   CONTROLES MOBILE
-========================= */
-
-#controls {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     display: none;
-    gap: 10px;
-    z-index: 100;
+
+    z-index: 30;
 }
 
 button {
-    border: 0;
-    background: #333;
-    color: white;
-    padding: 14px 25px;
-    border-radius: 10px;
+    margin-top: 15px;
+
+    padding: 10px 20px;
+
+    border: 2px solid #555;
+
+    background: transparent;
+
+    color: #555;
+
     font-family: monospace;
+
+    cursor: pointer;
+
     font-size: 16px;
 }
 
-@media (max-width: 700px) {
+button:hover {
+    background: #555;
+    color: white;
+}
+
+/* CELULAR */
+
+@media(max-width:600px) {
+
     #game {
-        margin-top: 30px;
+        height: 250px;
     }
 
-    #controls {
-        display: flex;
+    #dino {
+        left: 40px;
+    }
+
+    #score,
+    #highscore {
+        font-size: 15px;
     }
 }
 </style>
@@ -410,128 +380,127 @@ button {
 
 <div id="game">
 
-    <div id="score">00000</div>
+    <div id="score">
+        00000
+    </div>
+
+    <div id="highscore">
+        HI 00000
+    </div>
 
     <div id="message">
-        <h1>DINO RUNNER</h1>
-        <p>ESPAÇO / ↑ = PULAR</p>
-        <p>↓ = AGACHAR</p>
-        <br>
-        <p>Clique ou toque para começar</p>
+        PRESSIONE ESPAÇO PARA COMEÇAR
     </div>
 
     <div id="dino">
 
-        <div class="dino-spikes">▲▲▲</div>
-
-        <div class="dino-body"></div>
-
-        <div class="dino-head"></div>
-
-        <div class="dino-snout"></div>
-
-        <div class="dino-eye"></div>
-
-        <div class="dino-belly"></div>
-
-        <div class="dino-arm"></div>
-
         <div class="leg leg1"></div>
         <div class="leg leg2"></div>
 
-        <div class="tail"></div>
+        <div class="arm"></div>
+
+    </div>
+
+    <div id="ground"></div>
+
+    <div class="gameover" id="gameover">
+
+        GAME OVER
+
+        <br>
+
+        <button onclick="restartGame()">
+            ↻ JOGAR NOVAMENTE
+        </button>
 
     </div>
 
 </div>
 
-<div id="controls">
-    <button id="jumpBtn">PULAR</button>
-    <button id="crouchBtn">AGACHAR</button>
-</div>
 
 <script>
 
 /* =========================
-   ELEMENTOS
+   VARIÁVEIS
 ========================= */
 
 const game = document.getElementById("game");
 const dino = document.getElementById("dino");
-const scoreEl = document.getElementById("score");
+
+const scoreText = document.getElementById("score");
+const highscoreText = document.getElementById("highscore");
+
 const message = document.getElementById("message");
+const gameover = document.getElementById("gameover");
 
-const jumpBtn = document.getElementById("jumpBtn");
-const crouchBtn = document.getElementById("crouchBtn");
+let playing = false;
+let gameOver = false;
 
-
-/* =========================
-   ESTADO DO JOGO
-========================= */
-
-let running = false;
 let score = 0;
+let highscore = Number(localStorage.getItem("dinoHighscore")) || 0;
 
-let highScore =
-    Number(localStorage.getItem("dinoHighScore")) || 0;
+let speed = 6;
 
-let dinoY = 0;
-let velocity = 0;
+let obstacleTimer;
+let scoreTimer;
 
-const gravity = 0.8;
-const jumpPower = 15;
-
-let speed = 7;
-
-let obstacles = [];
-let clouds = [];
-
-let lastTime = 0;
-let lastObstacle = 0;
-
-let obstacleDelay = 1200;
+highscoreText.innerText =
+    "HI " + String(highscore).padStart(5, "0");
 
 
 /* =========================
-   INICIAR
+   COMEÇAR
 ========================= */
 
 function startGame() {
 
-    if (running) return;
+    if (playing) return;
 
-    running = true;
+    playing = true;
+    gameOver = false;
 
     score = 0;
-    speed = 7;
+    speed = 6;
 
-    dinoY = 0;
-    velocity = 0;
+    message.style.display = "none";
+    gameover.style.display = "none";
 
-    dino.classList.remove("crouching");
+    scoreText.innerText = "00000";
 
-    /* limpar obstáculos */
+    createObstacle();
 
-    obstacles.forEach(o => {
-        o.el.remove();
-    });
+    scoreTimer = setInterval(() => {
 
-    obstacles = [];
+        score++;
 
-    /* limpar nuvens */
+        scoreText.innerText =
+            String(score).padStart(5, "0");
 
-    clouds.forEach(c => {
-        c.el.remove();
-    });
+        /* aumenta velocidade */
 
-    clouds = [];
+        if (score % 100 === 0) {
 
-    message.classList.add("hidden");
+            speed += 0.5;
 
-    lastTime = performance.now();
-    lastObstacle = performance.now();
+        }
 
-    requestAnimationFrame(loop);
+        /* recorde */
+
+        if (score > highscore) {
+
+            highscore = score;
+
+            highscoreText.innerText =
+                "HI " + String(highscore).padStart(5, "0");
+
+            localStorage.setItem(
+                "dinoHighscore",
+                highscore
+            );
+        }
+
+    }, 100);
+
 }
 
 
@@ -541,17 +510,31 @@ function startGame() {
 
 function jump() {
 
-    if (!running) {
+    if (!playing) {
+
         startGame();
+
+    }
+
+    if (gameOver) return;
+
+    if (
+        dino.classList.contains("jump") ||
+        dino.classList.contains("crouch")
+    ) {
+
         return;
+
     }
 
-    if (dinoY === 0) {
+    dino.classList.add("jump");
 
-        velocity = jumpPower;
+    setTimeout(() => {
 
-        dino.classList.remove("crouching");
-    }
+        dino.classList.remove("jump");
+
+    }, 650);
+
 }
 
 
@@ -561,111 +544,161 @@ function jump() {
 
 function crouch() {
 
-    if (!running) return;
+    if (!playing) {
 
-    if (dinoY === 0) {
-        dino.classList.add("crouching");
+        startGame();
+
     }
-}
 
-function stopCrouch() {
-    dino.classList.remove("crouching");
+    if (gameOver) return;
+
+    if (dino.classList.contains("jump")) return;
+
+    dino.classList.add("crouch");
+
 }
 
 
 /* =========================
-   CRIAR CACTO / PÁSSARO
+   PARAR AGACHAMENTO
+========================= */
+
+function stopCrouch() {
+
+    dino.classList.remove("crouch");
+
+}
+
+
+/* =========================
+   CONTROLES
+========================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.code === "Space" ||
+        event.code === "ArrowUp"
+    ) {
+
+        event.preventDefault();
+
+        jump();
+
+    }
+
+    if (event.code === "ArrowDown") {
+
+        event.preventDefault();
+
+        crouch();
+
+    }
+
+});
+
+
+document.addEventListener("keyup", function(event) {
+
+    if (event.code === "ArrowDown") {
+
+        stopCrouch();
+
+    }
+
+});
+
+
+/* =========================
+   CRIAR OBSTÁCULOS
 ========================= */
 
 function createObstacle() {
 
-    const el = document.createElement("div");
+    if (!playing || gameOver) return;
 
-    /* pássaro */
+    const obstacle = document.createElement("div");
 
-    if (score >= 200 && Math.random() < 0.25) {
+    let isBird = Math.random() > 0.75;
 
-        el.className = "bird";
+    if (isBird) {
 
-        const heights = [
-            75,
-            105,
-            135,
-            160
-        ];
+        obstacle.classList.add("bird");
 
-        const h =
-            heights[
-                Math.floor(
-                    Math.random() * heights.length
-                )
-            ];
+        let height =
+            Math.random() > 0.5
+                ? 100
+                : 150;
 
-        el.style.bottom = h + "px";
+        obstacle.style.bottom =
+            height + "px";
 
-        game.appendChild(el);
+    } else {
 
-        obstacles.push({
-            el: el,
-            x: game.clientWidth + 40,
-            bird: true
-        });
+        obstacle.classList.add("cactus");
 
-        return;
+        if (Math.random() > 0.7) {
+
+            obstacle.style.height = "70px";
+
+        }
+
     }
 
+    obstacle.style.left =
+        game.offsetWidth + "px";
 
-    /* cacto */
+    game.appendChild(obstacle);
 
-    const sizes = [
-        "small",
-        "medium",
-        "large"
-    ];
+    moveObstacle(obstacle);
 
-    const size =
-        sizes[
-            Math.floor(
-                Math.random() * sizes.length
-            )
-        ];
-
-    el.className =
-        "cactus " + size;
-
-    game.appendChild(el);
-
-    obstacles.push({
-        el: el,
-        x: game.clientWidth + 40,
-        bird: false
-    });
 }
 
 
 /* =========================
-   NUVEM
+   MOVER OBSTÁCULO
 ========================= */
 
-function createCloud() {
+function moveObstacle(obstacle) {
 
-    const el = document.createElement("div");
+    let x = game.offsetWidth;
 
-    el.className = "cloud";
+    function move() {
 
-    const x = game.clientWidth + 50;
+        if (!playing || gameOver) {
 
-    el.style.left = x + "px";
+            obstacle.remove();
 
-    el.style.top =
-        (25 + Math.random() * 100) + "px";
+            return;
 
-    game.appendChild(el);
+        }
 
-    clouds.push({
-        el: el,
-        x: x
-    });
+        x -= speed;
+
+        obstacle.style.left =
+            x + "px";
+
+        checkCollision(obstacle);
+
+        if (x < -100) {
+
+            obstacle.remove();
+
+            setTimeout(
+                createObstacle,
+                Math.random() * 1000 + 600
+            );
+
+            return;
+
+        }
+
+        requestAnimationFrame(move);
+
+    }
+
+    move();
+
 }
 
 
@@ -673,19 +706,29 @@ function createCloud() {
    COLISÃO
 ========================= */
 
-function hit(a, b) {
+function checkCollision(obstacle) {
 
-    const r1 = a.getBoundingClientRect();
-    const r2 = b.getBoundingClientRect();
+    const d =
+        dino.getBoundingClientRect();
 
-    const padding = 6;
+    const o =
+        obstacle.getBoundingClientRect();
 
-    return (
-        r1.left + padding < r2.right &&
-        r1.right - padding > r2.left &&
-        r1.top + padding < r2.bottom &&
-        r1.bottom - padding > r2.top
-    );
+    const margem = 8;
+
+    if (
+
+        d.right - margem > o.left &&
+        d.left + margem < o.right &&
+        d.bottom - margem > o.top &&
+        d.top + margem < o.bottom
+
+    ) {
+
+        endGame();
+
+    }
+
 }
 
 
@@ -693,318 +736,126 @@ function hit(a, b) {
    GAME OVER
 ========================= */
 
-function gameOver() {
+function endGame() {
 
-    running = false;
+    if (gameOver) return;
 
-    const finalScore =
-        Math.floor(score);
+    gameOver = true;
+    playing = false;
 
-    if (finalScore > highScore) {
+    clearInterval(scoreTimer);
 
-        highScore = finalScore;
+    gameover.style.display = "block";
 
-        localStorage.setItem(
-            "dinoHighScore",
-            highScore
-        );
-    }
-
-    message.innerHTML = `
-        <h1>GAME OVER</h1>
-
-        <p>Pontuação: ${String(finalScore).padStart(5, "0")}</p>
-
-        <p>Recorde: ${String(highScore).padStart(5, "0")}</p>
-
-        <br>
-
-        <p>ESPAÇO ou clique para jogar novamente</p>
-    `;
-
-    message.classList.remove("hidden");
 }
 
 
 /* =========================
-   LOOP
+   REINICIAR
 ========================= */
 
-function loop(time) {
+function restartGame() {
 
-    if (!running) return;
+    document
+        .querySelectorAll(".cactus, .bird")
+        .forEach(el => el.remove());
 
-    const delta =
-        Math.min(time - lastTime, 40);
+    dino.classList.remove("jump");
+    dino.classList.remove("crouch");
 
-    lastTime = time;
+    gameover.style.display = "none";
 
+    playing = false;
+    gameOver = false;
 
-    /* =====================
-       FÍSICA DO DINO
-    ===================== */
+    startGame();
 
-    if (dinoY > 0 || velocity > 0) {
-
-        velocity -= gravity;
-
-        dinoY += velocity;
-
-        if (dinoY <= 0) {
-
-            dinoY = 0;
-            velocity = 0;
-        }
-    }
-
-    dino.style.bottom =
-        (dinoY + 4) + "px";
+}
 
 
-    /* =====================
-       OBSTÁCULOS
-    ===================== */
+/* =========================
+   NUVENS
+========================= */
 
-    if (
-        time - lastObstacle >
-        obstacleDelay
-    ) {
+function createCloud() {
 
-        createObstacle();
+    const cloud =
+        document.createElement("div");
 
-        lastObstacle = time;
+    cloud.classList.add("cloud");
 
-        obstacleDelay =
-            Math.max(
-                600,
-                1100 -
-                Math.floor(score / 100) * 35
-            ) +
-            Math.random() * 500;
-    }
+    cloud.style.left =
+        game.offsetWidth + "px";
 
+    cloud.style.top =
+        Math.random() * 80 + 20 + "px";
 
-    for (
-        let i = obstacles.length - 1;
-        i >= 0;
-        i--
-    ) {
+    game.appendChild(cloud);
 
-        const o = obstacles[i];
+    let x = game.offsetWidth;
 
-        o.x -=
-            speed *
-            (delta / 16);
+    function moveCloud() {
 
-        o.el.style.left =
-            o.x + "px";
+        x -= 1;
 
+        cloud.style.left =
+            x + "px";
 
-        /* colisão */
+        if (x < -100) {
 
-        if (hit(dino, o.el)) {
-
-            gameOver();
+            cloud.remove();
 
             return;
+
         }
 
+        requestAnimationFrame(moveCloud);
 
-        /* saiu da tela */
-
-        if (o.x < -100) {
-
-            o.el.remove();
-
-            obstacles.splice(i, 1);
-        }
     }
 
+    moveCloud();
 
-    /* =====================
-       NUVENS
-    ===================== */
-
-    if (Math.random() < 0.003) {
-        createCloud();
-    }
-
-
-    for (
-        let i = clouds.length - 1;
-        i >= 0;
-        i--
-    ) {
-
-        const c = clouds[i];
-
-        c.x -=
-            speed *
-            0.25 *
-            (delta / 16);
-
-        c.el.style.left =
-            c.x + "px";
-
-
-        if (c.x < -100) {
-
-            c.el.remove();
-
-            clouds.splice(i, 1);
-        }
-    }
-
-
-    /* =====================
-       PONTUAÇÃO
-    ===================== */
-
-    score +=
-        delta * 0.01;
-
-    scoreEl.textContent =
-        String(
-            Math.floor(score)
-        ).padStart(5, "0");
-
-
-    /* =====================
-       AUMENTAR VELOCIDADE
-    ===================== */
-
-    speed =
-        7 +
-        Math.floor(score / 100) * 0.45;
-
-
-    requestAnimationFrame(loop);
 }
 
 
-/* =========================
-   TECLADO
-========================= */
+/* cria nuvens */
 
-document.addEventListener(
-    "keydown",
-    function(e) {
+setInterval(() => {
 
-        if (
-            e.code === "Space" ||
-            e.code === "ArrowUp"
-        ) {
+    if (playing) {
 
-            e.preventDefault();
+        createCloud();
 
-            jump();
-        }
-
-        if (e.code === "ArrowDown") {
-
-            e.preventDefault();
-
-            crouch();
-        }
     }
-);
 
-
-document.addEventListener(
-    "keyup",
-    function(e) {
-
-        if (e.code === "ArrowDown") {
-            stopCrouch();
-        }
-    }
-);
+}, 2500);
 
 
 /* =========================
-   MOUSE
+   CLIQUE / CELULAR
 ========================= */
 
-game.addEventListener(
-    "mousedown",
-    function() {
-        jump();
-    }
-);
+game.addEventListener("mousedown", function() {
+
+    jump();
+
+});
+
+
+game.addEventListener("touchstart", function(event) {
+
+    event.preventDefault();
+
+    jump();
+
+});
 
 
 /* =========================
-   CELULAR
+   INÍCIO
 ========================= */
 
-game.addEventListener(
-    "touchstart",
-    function(e) {
-
-        e.preventDefault();
-
-        jump();
-
-    },
-    { passive: false }
-);
-
-
-jumpBtn.addEventListener(
-    "click",
-    function() {
-        jump();
-    }
-);
-
-
-crouchBtn.addEventListener(
-    "mousedown",
-    function(e) {
-
-        e.preventDefault();
-
-        crouch();
-    }
-);
-
-
-crouchBtn.addEventListener(
-    "mouseup",
-    stopCrouch
-);
-
-
-crouchBtn.addEventListener(
-    "mouseleave",
-    stopCrouch
-);
-
-
-crouchBtn.addEventListener(
-    "touchstart",
-    function(e) {
-
-        e.preventDefault();
-
-        crouch();
-
-    },
-    { passive: false }
-);
-
-
-crouchBtn.addEventListener(
-    "touchend",
-    function(e) {
-
-        e.preventDefault();
-
-        stopCrouch();
-
-    },
-    { passive: false }
-);
+message.addEventListener("click", startGame);
 
 </script>
 

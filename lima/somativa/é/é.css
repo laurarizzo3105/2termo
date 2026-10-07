@@ -1,0 +1,80 @@
+
+ * {
+ box-sizing: border-box;
+ }
+
+body {
+    margin: 0;
+    background: #1c1c1c;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagina {
+    width: 800px;
+    min-height: 700px;
+    margin: 30px auto;
+    background: white;
+}
+
+.cabecalho {
+    height: 55px;
+    background: #d9d9d9;
+    border-bottom: 1px solid #999;
+    padding: 10px 20px;
+}
+
+.cabecalho h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.conteudo {
+    padding: 20px;
+}
+
+.conteudo h2 {
+    margin: 0 0 15px 0;
+    font-size: 21px;
+}
+
+.pesquisa {
+    width: 500px;
+    height: 35px;
+    padding: 10px;
+    border: 1px solid #c8c8c8;
+    background: #f5f5f5;
+    color: #888;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.pergunta {
+    width: 650px;
+    min-height: 45px;
+    margin-bottom: 15px;
+    padding: 14px 10px;
+    background: #d9d9d9;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.pergunta::before {
+    content: "•";
+    margin-right: 6px;
+}
+
+.rodape {
+    margin-top: 70px;
+    padding: 0 20px 20px 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.rodape a {
+    color: rgb(134, 134, 134);
+    text-decoration: underline;
+    border: 1px solid rgb(134, 134, 134);
+    padding: 0 2px;
+}
