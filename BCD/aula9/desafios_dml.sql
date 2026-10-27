@@ -88,42 +88,70 @@ WHERE ID_PEDIDO = @PEDIDO;
 UPDATE PRODUTO
 SET ATIVO = FALSE
 WHERE NOME_PRODUTO = 'PIZZA' AND ID_CATEGORIA = @CATEGORIA;
+
+
+
 -- PARTE C - DELETE
--- 13. Crie um cliente de teste que não possua pedidos e depois exclua-o.
+-- 13. 
 INSERT INTO CLIENTE (NOME, EMAIL, TELEFONE, CIDADE, ATIVO) VALUES
 ('CLIENTE TESTE', 'TESTE@EMAIL.COM', '19900000000', 'LIMEIRA', TRUE);
 SET @CLIENTE_TESTE = LAST_INSERT_ID();
 DELETE FROM CLIENTE 
 WHERE ID_CLIENTE = @CLIENTE_TESTE;
--- 14. Tente excluir um cliente que possui pedidos e registre o que aconteceu.
+
+
+
+-- 14. 
 DELETE FROM CLIENTE 
 WHERE ID_CLIENTE = @CLIENTE;
+
+
+
 -- 15) Foreign Key garante a integridade referencial do banco de dados. 
 -- Ela impede a formação de dados "órfãos" — neste caso, um registro na tabela 
 -- PEDIDO que apontaria para um ID_CLIENTE inexistente. Para deletar o cliente, 
 -- seria necessário antes tratar os registros filhos.
+
+
+
 -- 16. Crie uma categoria de teste sem produtos e depois remova-a.
 INSERT INTO CATEGORIA (NOME_CATEGORIA) VALUES
 ('CATEGORIA TESTE');
 SET @CATEGORIA_TESTE = LAST_INSERT_ID();
 DELETE FROM CATEGORIA 
 WHERE ID_CATEGORIA = @CATEGORIA_TESTE;
+
+
+
 -- PARTE D - INTEGRIDADE E ERROS CONTROLADOS
--- 17. Tente inserir um produto com id_categoria = 9999.
+-- 17. 
+
 -- INSERT INTO PRODUTO (NOME_PRODUTO, PRECO, ATIVO, ID_CATEGORIA) 
 -- VALUES ('MOCHA ESPECIAL', 12.00, TRUE, 9999);
 -- Restrição que impediu: FOREIGN KEY (Chave Estrangeira).
 -- Explicação: A coluna ID_CATEGORIA na tabela PRODUTO é uma FK que exige que o ID exista previamente na tabela pai (CATEGORIA). O ID 9999 não existe.
+
+
+
+
 -- 18. Tente cadastrar um cliente usando 'ana@email.com'.
 -- INSERT INTO CLIENTE (NOME, EMAIL, TELEFONE, CIDADE, ATIVO) 
 -- VALUES ('ANA PAULA', 'ana@email.com', '19977776666', 'LIMEIRA', TRUE);
 -- Restrição que impediu: UNIQUE (Restrição de Unicidade).
 -- Explicação: A coluna EMAIL foi configurada com a restrição UNIQUE, impedindo a inserção de valores duplicados para clientes distintos.
+
+
+
+
 -- 19. Tente criar um pedido com id_cliente = 9999.
 -- INSERT INTO PEDIDO (DATA_PEDIDO, STATUS_PEDIDO, VALOR_TOTAL, ID_CLIENTE) 
 -- VALUES (NOW(), 'PENDENTE', 0.00, 9999);
 -- Restrição que impediu: FOREIGN KEY (Chave Estrangeira).
 -- Explicação: A coluna ID_CLIENTE na tabela PEDIDO é uma FK apontando para CLIENTE. A operação falha pois o ID 9999 não corresponde a nenhum cliente cadastrado.
+
+
+
+
 -- 20. Diferença entre os três erros anteriores:
 /*
 Questões 17 e 19 (FOREIGN KEY): Erros de Integridade Referencial. Impedem o vínculo 
@@ -132,9 +160,17 @@ Questões 17 e 19 (FOREIGN KEY): Erros de Integridade Referencial. Impedem o ví
 Questão 18 (UNIQUE): Erro de Integridade de Unicidade/Entidade. Impede a repetição de um valor 
   em uma coluna específica, garantindo que cada registro possua uma identificação exclusiva para aquele atributo.
 */
+
+
+
+
 -- PARTE E - DESAFIO COMPLETO COM TRANSAÇÃO
 -- 21. Inicie uma transação.
 START TRANSACTION;
+
+
+
+
 -- 22. Dentro dela, cadastre um cliente, um pedido e dois itens relacionados.
 INSERT INTO CLIENTE (NOME, EMAIL, TELEFONE, CIDADE, ATIVO) VALUES
 ('CARLOS EDUARDO', 'CARLOS.ED@EMAIL.COM', '19981112233', 'LIMEIRA', TRUE);
@@ -145,6 +181,10 @@ SET @ID_PEDIDO_TRANS = LAST_INSERT_ID();
 INSERT INTO ITEM_PEDIDO (ID_PEDIDO, ID_PRODUTO, QUANTIDADE, PRECO_UNITARIO) VALUES
 (@ID_PEDIDO_TRANS, 1, 1, 20.00),
 (@ID_PEDIDO_TRANS, 2, 1, 25.00);
+
+
+
+
 -- 23. Faça uma consulta com JOIN comprovando que os registros existem enquanto a transação está aberta.
 SELECT 
     C.NOME AS CLIENTE,
@@ -159,11 +199,20 @@ JOIN PEDIDO P ON C.ID_CLIENTE = P.ID_CLIENTE
 JOIN ITEM_PEDIDO I ON P.ID_PEDIDO = I.ID_PEDIDO
 JOIN PRODUTO PR ON I.ID_PRODUTO = PR.ID_PRODUTO
 WHERE C.ID_CLIENTE = @ID_CLIENTE_TRANS;
+
+
+
+
 -- 24. Execute ROLLBACK e depois use SELECT para provar que o cadastro foi desfeito.
 ROLLBACK;
 -- Consultas de verificação pós-ROLLBACK (devem retornar conjunto vazio)
 SELECT * FROM CLIENTE WHERE EMAIL = 'CARLOS.ED@EMAIL.COM';
 SELECT * FROM PEDIDO WHERE ID_PEDIDO = @ID_PEDIDO_TRANS;
+
+
+
+
+
 -- 25. Repita o processo com novos dados e finalize usando COMMIT. Depois consulte os registros persistidos.
 START TRANSACTION;
 INSERT INTO CLIENTE (NOME, EMAIL, TELEFONE, CIDADE, ATIVO) VALUES
@@ -188,6 +237,10 @@ JOIN PEDIDO P ON C.ID_CLIENTE = P.ID_CLIENTE
 JOIN ITEM_PEDIDO I ON P.ID_PEDIDO = I.ID_PEDIDO
 JOIN PRODUTO PR ON I.ID_PRODUTO = PR.ID_PRODUTO
 WHERE C.ID_CLIENTE = @ID_CLIENTE_COMMIT;
+
+
+
+
 -- DESAFIO EXTRA
 -- 26. Regra de Negócio SmartCoffee:
 -- Cenário: Indisponibilidade temporária de insumo de um produto do cardápio.
