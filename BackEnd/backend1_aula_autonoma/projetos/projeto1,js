@@ -1,0 +1,11 @@
+const entrada = require('readline-sync');
+
+const velocidade = entrada.questionfloat("Qual a velocidade? ");
+
+if (velocidade >= 80){
+    console.log("multado por exceço de velocidade");
+} else if (velocidade < 80){
+    console.log("velocidade adequeda, boa viagem!");
+} 
+
+
